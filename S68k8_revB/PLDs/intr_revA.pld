@@ -1,0 +1,42 @@
+Name      intr;
+Partno    NA;
+Date      22/04/2020;
+Rev       A;
+Designer  dj;
+Company   Meh Systems Inc;
+Assembly  None;
+Location  None;
+Device    G16V8A;
+
+/* Compile with: cupl -jaxfl */
+
+/****************************************************************/
+/*                                                              */
+/* S68k8 interrupt encoder                                      */
+/*                                                              */
+/****************************************************************/
+
+/* Pin assignments */
+
+Pin  1 = FC1;
+Pin  2 = FC0;
+Pin  3 = !IRQ0;
+Pin  4 = !IRQ1;
+Pin  5 = !IRQ2;
+Pin  6 = !IRQ3;
+Pin  7 = !IRQ4;
+Pin  8 = !IRQ5;
+Pin  9 = !IRQ6;
+Pin 12 = !AS;
+Pin 16 = !IACK;
+Pin 17 = !IPL0;
+Pin 18 = !IPL1;
+Pin 19 = !IPL2;
+
+/* Equations */
+
+IPL2 = IRQ0 # IRQ1 # IRQ2 # IRQ3;
+IPL1 = IRQ0 # IRQ1 # !IRQ2 & !IRQ3 & (IRQ4 # IRQ5);
+IPL0 = IRQ0 # IRQ2 & IRQ1 # IRQ4 & !IRQ3 & !IRQ1 # IRQ6 & !IRQ5 & !IRQ3 & !IRQ1;
+
+IACK = AS & FC1 & FC0;

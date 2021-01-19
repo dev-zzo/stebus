@@ -1,0 +1,113 @@
+Name      arbiter;
+Partno    NA;
+Date      22/04/2020;
+Rev       B;
+Designer  dj;
+Company   Meh Systems Inc;
+Assembly  None;
+Location  None;
+Device    G16V8;
+
+/* Compile with: cupl -jaxfl */
+
+/****************************************************************/
+/*                                                              */
+/* S68k8 IEEE 1000 / STE Bus arbiter implementation             */
+/*                                                              */
+/****************************************************************/
+
+/* Pin assignments */
+
+Pin  1 = TIMEOUT;
+Pin  2 = A21;
+Pin  3 = !STE_DATACK;
+Pin  4 = !STE_TFRERR;
+Pin  5 = !IACK;
+Pin  6 = !STE_BUSEN40;
+Pin  7 = !STE_BUSRQ1;
+Pin  8 = !STE_BUSRQ0;
+Pin  9 = !AS;
+Pin 11 = !DS;
+Pin 12 = TESTOUT;
+Pin 13 = !STE_BUSAK0;
+Pin 14 = !STE_DATSTB;
+Pin 15 = !STE_BUSAK1;
+Pin 16 = !STE_ADRSTB;
+Pin 17 = !STE_BUSEN;
+Pin 18 = !BERR;
+Pin 19 = !DTACK;
+
+/* Equations */
+
+/*
+The CPU will access the bus for high addresses and for memory/IO access cycles only
+*/
+bus_access = AS & A21 & !IACK;
+
+/*
+The CPU is the bus master when none of BUSAKx are asserted
+*/
+bus_master = !STE_BUSAK0 & !STE_BUSRQ0 & !STE_BUSAK1 & !STE_BUSRQ1;
+
+/*
+Assert BUSAK0 when
+- BUSRQ0 is asserted and bus is not already granted to channel 1 or CPU, OR
+- BUSRQ0 is still asserted and access was granted to channel 0.
+*/
+STE_BUSAK0 =
+    STE_BUSRQ0 & !STE_BUSAK1 & !STE_BUSEN
+  # STE_BUSRQ0 & STE_BUSAK0;
+
+/*
+Assert BUSAK1 when
+- BUSRQ1 is asserted and bus is not requested/granted to channel 0 or CPU, OR
+- BUSRQ1 is still asserted and access was granted to channel 1.
+*/
+STE_BUSAK1 =
+    STE_BUSRQ1 & !STE_BUSRQ0 & !STE_BUSAK0 & !STE_BUSEN
+  # STE_BUSRQ1 & STE_BUSAK1 & !STE_BUSAK0;
+
+/*
+Drive the bus when
+- access to the bus is made and we are the bus master, OR
+- bus access cycle has already started.
+*/
+STE_BUSEN =
+    bus_access & bus_master
+  # STE_ADRSTB;
+
+/*
+Assert ADRSTB when
+- AS is asserted and bus is driven and there is no DATACK or TFRERR asserted, OR
+- DATSTB and ADRSTB are asserted, OR
+- DATSTB and DATACK are asserted, OR
+- DATSTB and no TFRERR are asserted
+*/
+STE_ADRSTB =
+    AS & STE_BUSEN & STE_BUSEN40 & !STE_DATACK & !STE_TFRERR
+  # STE_DATSTB & STE_ADRSTB
+  # STE_DATSTB & STE_DATACK
+  # STE_DATSTB & STE_TFRERR;
+
+/*
+Assert DATSTB when DS is asserted and ADRSTB is asserted
+*/
+STE_DATSTB = DS & STE_ADRSTB;
+
+/*
+Assert DTACK when bus is accessed and DATACK is asserted
+*/
+dtack = STE_DATSTB & STE_DATACK;
+DTACK = dtack;
+DTACK.oe = dtack;
+
+/*
+Assert BERR when
+- bus is accessed and TFRERR is asserted, OR
+- bus is accessed and DATSTB and TIMEOUT are asserted, OR
+- bus is accessed and DATSTB and BERR are asserted
+*/
+BERR =
+    bus_access & bus_master & STE_TFRERR
+  # bus_access & STE_DATSTB & TIMEOUT
+  # bus_access & STE_DATSTB & BERR;

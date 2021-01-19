@@ -5,3 +5,8 @@
 *.gbr
 *.drl
 *.gbrjob
+
+*.lst
+*.doc
+*.sim
+*.abs

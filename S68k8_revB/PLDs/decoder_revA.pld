@@ -1,0 +1,63 @@
+Name      decoder;
+Partno    NA;
+Date      22/04/2020;
+Rev       A;
+Designer  dj;
+Company   Meh Systems Inc;
+Assembly  None;
+Location  None;
+Device    G16V8A;
+
+/* Compile with: cupl -jaxfl */
+
+/****************************************************************/
+/*                                                              */
+/* S68k8 local chip select decoder                              */
+/*                                                              */
+/****************************************************************/
+
+/* Pin assignments */
+
+Pin  1 = A21;
+Pin  2 = A17;
+Pin  3 = A16;
+Pin  4 = A15;
+Pin  5 = RnW;
+Pin  6 = !REMAP;
+Pin  7 = !IACK;
+Pin  8 = !AS;
+Pin  9 = !DS;
+Pin 12 = !ROMCS;
+Pin 13 = !RAM0CS;
+Pin 14 = !RAM1CS;
+Pin 15 = !RTCCS;
+Pin 16 = !MEMOE;
+Pin 17 = !MEMWE;
+Pin 18 = !UARTCS;
+Pin 19 = !DTACK;
+
+/* Equations */
+
+onboard = !IACK & !A21;
+
+ROMCS =
+    AS & onboard & !A17 & !A16 & !REMAP
+  # AS & onboard & !A17 & A16 & REMAP;
+
+RAM0CS =
+    AS & onboard & !A17 & A16 & !A15 & !REMAP
+  # AS & onboard & !A17 & !A16 & !A15 & REMAP;
+
+RAM1CS =
+    AS & onboard & !A17 & A16 & A15 & !REMAP
+  # AS & onboard & !A17 & !A16 & A15 & REMAP;
+
+RTCCS = AS & onboard & A17 & !A16;
+
+UARTCS = AS & onboard & A17 & A16;
+
+MEMOE = DS & !IACK & RnW;
+MEMWE = DS & !IACK & !RnW;
+
+DTACK = DS & onboard & !(A17 & A16);
+DTACK.oe = DS & onboard & !UARTCS;

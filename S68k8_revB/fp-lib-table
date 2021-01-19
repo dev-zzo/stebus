@@ -1,0 +1,4 @@
+(fp_lib_table
+  (lib (name STEBUS)(type KiCad)(uri C:/Users/dimka/Documents/STEBUS)(options "")(descr ""))
+  (lib (name S68k8)(type KiCad)(uri ${KIPRJMOD}/S68k8.pretty)(options "")(descr ""))
+)

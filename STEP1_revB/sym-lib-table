@@ -1,0 +1,4 @@
+(sym_lib_table
+  (lib (name STEBUS)(type Legacy)(uri C:/Users/dimka/Documents/STEBUS/STEBUS.lib)(options "")(descr ""))
+  (lib (name STEP1)(type Legacy)(uri ${KIPRJMOD}/STEP1.lib)(options "")(descr ""))
+)

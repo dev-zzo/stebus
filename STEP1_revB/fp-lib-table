@@ -1,0 +1,3 @@
+(fp_lib_table
+  (lib (name STEP1)(type KiCad)(uri ${KIPRJMOD}/STEP1.pretty)(options "")(descr ""))
+)
