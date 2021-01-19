@@ -1,0 +1,7 @@
+*.sch-bak
+*.kicad_pcb-bak
+*.net
+*.dcm
+*.gbr
+*.drl
+*.gbrjob
