@@ -849,13 +849,13 @@ Text Label 2350 4350 0    50   ~ 0
 STE-SYSCLK
 $Comp
 L 74xx:74LS07 U7
-U 3 1 60759A4C
+U 5 1 60759A4C
 P 9250 5400
 F 0 "U7" H 9250 5717 50  0000 C CNN
 F 1 "74LS07" H 9250 5626 50  0000 C CNN
 F 2 "Package_DIP:DIP-14_W7.62mm" H 9250 5400 50  0001 C CNN
 F 3 "www.ti.com/lit/ds/symlink/sn74ls07.pdf" H 9250 5400 50  0001 C CNN
-	3    9250 5400
+	5    9250 5400
 	1    0    0    -1  
 $EndComp
 Wire Wire Line

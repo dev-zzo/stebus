@@ -43,24 +43,24 @@ Text Notes 600  3750 0    50   ~ 0
 When AS negated: Inhibit\nWhen IACK asserted: Inhibit\n000000 .. 00FFFF: ROM\n010000 .. 017FFF: RAM0\n018000 .. 01FFFF: RAM1\n020000 .. 02FFFF: RTC\n030000 .. 03FFFF: UART\n040000 .. 1FFFFF: Repeat\n200000 .. 3FFFFF: Inhibit\n\nDTACK = ROMCS + RAM0CS + RAM1CS
 $Comp
 L 74xx:74LS07 U7
-U 1 1 605DC63B
+U 2 1 605DC63B
 P 2850 1400
 F 0 "U7" H 2850 1717 50  0000 C CNN
 F 1 "74LS07" H 2850 1626 50  0000 C CNN
 F 2 "Package_DIP:DIP-14_W7.62mm" H 2850 1400 50  0001 C CNN
 F 3 "www.ti.com/lit/ds/symlink/sn74ls07.pdf" H 2850 1400 50  0001 C CNN
-	1    2850 1400
+	2    2850 1400
 	1    0    0    -1  
 $EndComp
 $Comp
 L 74xx:74LS07 U7
-U 2 1 605DD23E
+U 1 1 605DD23E
 P 2850 1900
 F 0 "U7" H 2850 2217 50  0000 C CNN
 F 1 "74LS07" H 2850 2126 50  0000 C CNN
 F 2 "Package_DIP:DIP-14_W7.62mm" H 2850 1900 50  0001 C CNN
 F 3 "www.ti.com/lit/ds/symlink/sn74ls07.pdf" H 2850 1900 50  0001 C CNN
-	2    2850 1900
+	1    2850 1900
 	1    0    0    -1  
 $EndComp
 Wire Wire Line
@@ -579,13 +579,13 @@ Connection ~ 6500 3350
 NoConn ~ 2800 3900
 $Comp
 L 74xx:74LS07 U7
-U 6 1 5FE659BA
+U 3 1 5FE659BA
 P 3850 1400
 F 0 "U7" H 3850 1717 50  0000 C CNN
 F 1 "74LS07" H 3850 1626 50  0000 C CNN
 F 2 "Package_DIP:DIP-14_W7.62mm" H 3850 1400 50  0001 C CNN
 F 3 "www.ti.com/lit/ds/symlink/sn74ls07.pdf" H 3850 1400 50  0001 C CNN
-	6    3850 1400
+	3    3850 1400
 	1    0    0    -1  
 $EndComp
 Wire Wire Line
