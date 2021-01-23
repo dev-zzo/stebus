@@ -377,7 +377,7 @@ Text GLabel 4400 5250 2    50   Output ~ 0
 ~IACK
 Text GLabel 6400 1800 0    50   Input ~ 0
 CPUCLK
-Text GLabel 6400 2600 0    50   Input ~ 0
+Text GLabel 5850 2600 0    50   Input ~ 0
 ~DTACK
 Text GLabel 6400 2700 0    50   Input ~ 0
 ~BERR
@@ -486,14 +486,35 @@ Wire Wire Line
 	3000 2000 3900 2000
 Wire Wire Line
 	3000 2100 4000 2100
-Wire Wire Line
-	3300 1400 3150 1400
-Wire Wire Line
-	3150 1400 3150 1000
-Text GLabel 3150 1000 1    50   UnSpc ~ 0
-~DTACK
 NoConn ~ 2950 5750
 NoConn ~ 4050 5350
 NoConn ~ 4050 5450
 NoConn ~ 4050 5550
+Wire Wire Line
+	5850 2600 5950 2600
+$Comp
+L Device:R_Small R12
+U 1 1 600D3DDF
+P 5950 2500
+F 0 "R12" H 6009 2546 50  0000 L CNN
+F 1 "1k" H 6009 2455 50  0000 L CNN
+F 2 "Resistor_THT:R_Axial_DIN0204_L3.6mm_D1.6mm_P7.62mm_Horizontal" H 5950 2500 50  0001 C CNN
+F 3 "~" H 5950 2500 50  0001 C CNN
+	1    5950 2500
+	1    0    0    -1  
+$EndComp
+Connection ~ 5950 2600
+Wire Wire Line
+	5950 2600 6400 2600
+$Comp
+L power:+5V #PWR076
+U 1 1 600D43CE
+P 5950 2400
+F 0 "#PWR076" H 5950 2250 50  0001 C CNN
+F 1 "+5V" H 5965 2573 50  0000 C CNN
+F 2 "" H 5950 2400 50  0001 C CNN
+F 3 "" H 5950 2400 50  0001 C CNN
+	1    5950 2400
+	1    0    0    -1  
+$EndComp
 $EndSCHEMATC
